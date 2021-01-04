@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "arr.h"
 
 void C3(arr, T, alloc)(C2(arr, T) *a, size_t cap) {

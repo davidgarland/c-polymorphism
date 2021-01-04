@@ -35,7 +35,7 @@ excluding the header guard so it can be included multiple times:
 
 ```C
 // arr.h
-#inclue <stdlib.h>
+#include <stdlib.h>
 #include "macro.h"
 
 typedef struct {
@@ -60,7 +60,6 @@ failure, asserts to check for NULL arguments or zero capacity, et cetera):
 
 ```C
 // arr.c
-#include <stdlib.h>
 #include "arr.h"
 
 void C3(arr, T, alloc)(C2(arr, T) *a, size_t cap) {
