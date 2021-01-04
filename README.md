@@ -108,3 +108,8 @@ In the attached program, `defs.c` is the single translation unit that defines
 `foo.c`.
 
 To compile the program, do `cc foo.c main.c defs.c`.
+
+# Gotchas
+
+- This won't work for, say, arrays of non-typedef'd pointers, because you can't use `*` in an identifier. Same goes for array types, un-typedef'd structs, or types with qualifiers. Typedefs and `stdint.h` are your friend.
+- Things like `arr_bool` will not work with `stdbool.h` as expected, because `bool` is a macro expanding to `_Bool` instead of a typedef for some reason. Instead you get `arr__Bool`. gross.
