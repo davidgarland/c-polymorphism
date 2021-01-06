@@ -50,7 +50,7 @@ void C3(arr, T, free)(C2(arr, T) *);
 void C3(arr, T, snoc)(C2(arr, T) *, T);
 ```
 
-Here `T` specifies a type name, and we use that both in the defintiion of the
+Here `T` specifies a type name, and we use that both in the definition of the
 structure as well as to define its name. Some function signatures are also
 defined below: allocation, freeing, and "snoc" ("cons" but the other way around;
 the more popular name is "push_back".)
@@ -113,3 +113,4 @@ To compile the program, do `cc foo.c main.c defs.c`.
 
 - This won't work for, say, arrays of non-typedef'd pointers, because you can't use `*` in an identifier. Same goes for array types, un-typedef'd structs, or types with qualifiers. Typedefs and `stdint.h` are your friend.
 - Things like `arr_bool` will not work with `stdbool.h` as expected, because `bool` is a macro expanding to `_Bool` instead of a typedef for some reason. Instead you get `arr__Bool`. gross.
+- This is a rare problem, but libraries based on other libraries using this method should not define ["orphan instances"](https://wiki.haskell.org/Orphan_instance); that is, if you are defining an instance (using the `.c` file) of a polymorphic structure that your library did not create for a type that you did not create, you run the risk of another library defining that same instance and then being incompatible with yours. If you either own the polymorphic structure or the type it's instantiated with, there is no risk of this happening. If you run into this problem, I would recommend either having flags to disable the orphan instances individually or asking the end user to do the instantiation of the orphan instance for you; if all libraries do this, there is no conflict.
